@@ -1,4 +1,4 @@
-# yolov8_cspdarknet-detection
+# cspdarknet-classification
 
 ## 数据集格式要求
 该模型仅针对自行车/电瓶车误检，如有负样本建议在第一阶段训练时加入，不要在这个模型内处理
