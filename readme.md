@@ -32,8 +32,9 @@ python trainer.py --device_id cuda \
 --trainset_path /nfs/datasets/mydataset/train \
 --valset_path /nfs/datasets/mydataset/val
 ```
+训练时会自动padding并等比缩放到(image_size, image_size)大小，如需配置，可指定`--image_size`
 
 ## 导出模型
 ```shell
-python export.py --weight my_weight.pt --input_shape 1 3 1280 1280 --input_names image --opset_version 13 --enable_onnxsim
+python export.py --weight my_weight.pt --input_shape 1 3 640 640 --input_names image --opset_version 13 --enable_onnxsim
 ```
