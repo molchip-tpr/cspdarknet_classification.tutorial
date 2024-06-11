@@ -5,13 +5,21 @@
 - mydataset
     - train
         - class1名字
+            - xxx.jpg
+            - xxx.jpg
         - class2名字
+            - xxx.jpg
+            - xxx.jpg
         - ...
     - val
         - class1名字
+            - xxx.jpg
+            - xxx.jpg
         - class2名字
+            - xxx.jpg
+            - xxx.jpg
         - ...
-
+具体内容需要和`dataset.py`中的class_names对应，请注意配置
 
 ## 训练模型
 ```shell
