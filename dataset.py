@@ -90,10 +90,11 @@ class ClassificationDataset(Dataset):
     def load_image_and_cls(self, index):
         cls, f = self.im_files[index]
         image = cv2.imread(f)  # BGR
+        cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         assert image is not None, f"Image Not Found {f}"
         to_pil = T.ToPILImage()
         image = to_pil(image)
-        self.resize_with_padding(image, (self.image_size, self.image_size))
+        image = self.resize_with_padding(image, (self.image_size, self.image_size))
         return image, cls
 
     def __getitem__(self, index):

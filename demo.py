@@ -39,7 +39,8 @@ def letterbox_padding(frame: torch.Tensor, gs=32):
 
 
 if __name__ == "__main__":
-    image_path = "test_image.jpg"
+    # image_path = "test_bicycle.jpg"
+    image_path = "test_electric_bicycle.jpg"
     np_image = cv2.imread(image_path)
     torch_image = im2tensor(np_image)
     torch_image = letterbox_padding(torch_image).unsqueeze(0)
