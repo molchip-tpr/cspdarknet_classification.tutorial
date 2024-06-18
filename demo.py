@@ -44,8 +44,8 @@ if __name__ == "__main__":
     torch_image = im2tensor(np_image)
     torch_image = letterbox_padding(torch_image).unsqueeze(0)
 
-    model = cspdarknet(num_classes=3)
-    model.load_state_dict(torch.load("my_pretrained.pt"))
+    model = cspdarknet(num_classes=3).eval()
+    model.load_state_dict(torch.load("runs/00f9b9.pt"))
     with torch.no_grad():
         y = model(torch_image)
     print(y)
