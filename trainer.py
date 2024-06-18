@@ -16,7 +16,7 @@ from copy import deepcopy
 
 
 @torch.no_grad()
-def val(model, val_loader, half=True, debug_mode=False):
+def val(model, class_names, val_loader, half=True, debug_mode=False):
     # Initialize/load model and set device
     device = next(model.parameters()).device
     half &= device.type != "cpu"  # half precision only supported on CUDA
@@ -25,11 +25,12 @@ def val(model, val_loader, half=True, debug_mode=False):
     # Configure
     model.eval()
     cuda = device.type != "cpu"
-    s = ("%20s" + "%11s" * 2) % ("Class", "Images", "Accuracy")
+    s = ("%20s" + "%11s") % ("Class", "Accuracy")
     pbar = tqdm(val_loader, desc=s, bar_format="{l_bar}{bar:10}{r_bar}{bar:-10b}")  # progress bar
+    nc = len(class_names)
 
-    out_t = 0
-    out_f = 0
+    out_t = np.zeros(nc)
+    out_f = np.zeros(nc)
 
     for im, targets in pbar:
         if cuda:
@@ -45,16 +46,19 @@ def val(model, val_loader, half=True, debug_mode=False):
             pred = torch.argmax(pred)
             gt = targets[i]
             if pred == gt:
-                out_t += 1
+                out_t[gt] += 1
             else:
-                out_f += 1
+                out_f[gt] += 1
         if debug_mode:
             break
 
     # Compute metrics
-    acc = out_t / (out_t + out_f)
     pf = "%20s" + "%11.3g"  # print format
+    acc = out_t.sum() / (out_t.sum() + out_f.sum())
     print(pf % ("all", acc))
+    for i in range(nc):
+        acc = out_t[i] * 1.0 / (out_t[i] + out_f[i])
+        print(pf % (class_names[i], acc))
 
     # Return results
     model.float()  # for training
@@ -241,7 +245,7 @@ def train(
 
         # update best mAP
         model_for_val = model if not ema_enabled else ema.ema
-        acc = val(model_for_val, val_loader, half=autocast_enabled, debug_mode=debug_mode)
+        acc = val(model_for_val, class_names, val_loader, half=autocast_enabled, debug_mode=debug_mode)
 
         # update wandb
         if wandb_enabled:

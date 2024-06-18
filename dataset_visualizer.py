@@ -24,7 +24,7 @@ def visualize(dataset: ClassificationDataset):
 if __name__ == "__main__":
     dataset = ClassificationDataset(
         training=True,
-        dataset_path="/nfs/datasets/classficiation_2_classes_eb__non_eb_20240602",
+        dataset_path="/nfs/datasets/quaming_classification_3_class/val",
         image_size=640,
     )
     visualize(dataset)

@@ -168,6 +168,8 @@ class Model(nn.Module):
         out = self.gap(p5)
         out = torch.flatten(out, start_dim=1)
         y = self.fc(out)
+        if not self.training:
+            y = y.sigmoid()
         return y
 
 

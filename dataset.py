@@ -11,7 +11,7 @@ from PIL import Image
 
 
 class ClassificationDataset(Dataset):
-    class_names = ["eb", "non_eb"]  # 请按实际需要修改
+    class_names = ["bicycle", "electric_bicycle", "gastank"]  # 请按实际需要修改
 
     # Base Class For making datasets which are compatible with nano
     def __init__(

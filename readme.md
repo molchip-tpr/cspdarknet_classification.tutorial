@@ -38,3 +38,4 @@ python trainer.py --device_id cuda \
 ```shell
 python export.py --weight my_weight.pt --input_shape 1 3 640 640 --input_names image --opset_version 13 --enable_onnxsim
 ```
+
