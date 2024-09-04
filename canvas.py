@@ -234,7 +234,7 @@ class Canvas:
         heatmap = None
         heatmap = cv2.normalize(feature, heatmap, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
         heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)
-        heatmap = cv2.resize(heatmap, (w, h))
+        heatmap = cv2.resize(heatmap, (w, h), interpolation=cv2.INTER_NEAREST_EXACT)
         layer = self.new_layer(alpha)
         layer.data += heatmap
 

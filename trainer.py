@@ -57,8 +57,8 @@ def val(model, class_names, val_loader, half=True, debug_mode=False):
     acc = out_t.sum() / (out_t.sum() + out_f.sum())
     print(pf % ("all", acc))
     for i in range(nc):
-        acc = out_t[i] * 1.0 / (out_t[i] + out_f[i])
-        print(pf % (class_names[i], acc))
+        cls_acc = out_t[i] * 1.0 / (out_t[i] + out_f[i])
+        print(pf % (class_names[i], cls_acc))
 
     # Return results
     model.float()  # for training
